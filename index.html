@@ -200,6 +200,53 @@
                     <div id="collapse-prob">Probabilità: 0%</div>
                     <progress id="collapse-bar" value="0" max="100" style="width:100%; height:10px;"></progress>
                 </div>
+                
+                <!-- INIZIO SEZIONE Þ-F - AGGIUNTA NON INVASIVA -->
+                <div style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #2196F3;">
+                    <h3>🔬 Analisi Þ-F (Diagnostica Relazionale)</h3>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 15px 0;">
+                        <div style="text-align: center; padding: 10px; background: white; border-radius: 6px;">
+                            <div style="font-size: 12px; color: #666;">Ambiente (A)</div>
+                            <div id="phi-a-value" style="font-size: 20px; font-weight: bold;">57.1%</div>
+                            <div style="font-size: 10px; color: #888;">Ideale: 57.1%</div>
+                        </div>
+                        <div style="text-align: center; padding: 10px; background: white; border-radius: 6px;">
+                            <div style="font-size: 12px; color: #666;">Ente (E)</div>
+                            <div id="phi-e-value" style="font-size: 20px; font-weight: bold;">28.6%</div>
+                            <div style="font-size: 10px; color: #888;">Ideale: 28.6%</div>
+                        </div>
+                        <div style="text-align: center; padding: 10px; background: white; border-radius: 6px;">
+                            <div style="font-size: 12px; color: #666;">Collasso (C)</div>
+                            <div id="phi-c-value" style="font-size: 20px; font-weight: bold;">14.3%</div>
+                            <div style="font-size: 10px; color: #888;">Ideale: 14.3%</div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 15px;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                            <span>Deviazione D:</span>
+                            <span id="phi-d-value" style="font-weight: bold;">0.0%</span>
+                        </div>
+                        <div style="height: 10px; background: #e0e0e0; border-radius: 5px; overflow: hidden;">
+                            <div id="phi-d-bar" style="height: 100%; background: #4CAF50; width: 0%;"></div>
+                        </div>
+                        <div style="font-size: 11px; color: #666; margin-top: 5px;">D < 5%: Sistema sano | D > 20%: Patologia sistemica</div>
+                    </div>
+                    
+                    <div style="margin-top: 15px;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                            <span>Coefficiente di Risonanza F:</span>
+                            <span id="phi-f-value" style="font-weight: bold;">0.00</span>
+                        </div>
+                        <div style="height: 10px; background: #e0e0e0; border-radius: 5px; overflow: hidden;">
+                            <div id="phi-f-bar" style="height: 100%; background: #2196F3; width: 0%;"></div>
+                        </div>
+                        <div style="font-size: 11px; color: #666; margin-top: 5px;">F > 0.75: Auto-guarigione possibile</div>
+                    </div>
+                </div>
+                <!-- FINE SEZIONE Þ-F -->
+                
             </div>
         </div>
     </div>
@@ -505,6 +552,9 @@
                 
                 // Aggiorna predittore
                 this.updateCollapsePredictor(phi, variance);
+                
+                // === AGGIUNTA CRITICA: CHIAMA L'ANALISI Þ-F ===
+                this.updatePhiFMetrics();
             }
             
             drawGraph(ctx, canvas, data, color) {
@@ -693,175 +743,102 @@
                 alert('📤 Dati esportati con successo!');
             }
         }
-        
+
+        // =====================
+        // ANALISI Þ-F (AGGIUNTA NON INVASIVA)
+        // =====================
+
+        class PhiFAnalysis {
+            static calculate(efficiencies) {
+                // 1. Calcola A, E, C dal sistema
+                const total = efficiencies.length;
+                
+                // A: nodi con efficienza > 1.2 (iper-attivi, "Ambiente ipertrofico")
+                const A = efficiencies.filter(e => e > 1.2).length / total;
+                
+                // E: nodi con efficienza tra 0.9 e 1.1 (equilibrio, "Ente sano")
+                const E = efficiencies.filter(e => e >= 0.9 && e <= 1.1).length / total;
+                
+                // C: nodi con efficienza < 0.8 (in collasso)
+                const C = efficiencies.filter(e => e < 0.8).length / total;
+                
+                // Normalizza (A + E + C potrebbe non fare 1 a causa della zona "grigia")
+                const sum = A + E + C;
+                const A_norm = sum > 0 ? A / sum : 0.571;
+                const E_norm = sum > 0 ? E / sum : 0.286;
+                const C_norm = sum > 0 ? C / sum : 0.143;
+                
+                // 2. Calcola Deviazione D dalla proporzione ideale 4:2:1 (57.1%:28.6%:14.3%)
+                const D = (Math.abs(A_norm - 0.571) + 
+                           Math.abs(E_norm - 0.286) + 
+                           Math.abs(C_norm - 0.143)) / 3 * 100;
+                
+                // 3. Calcola Coefficiente di Risonanza F
+                // F è inversamente proporzionale alla varianza, ma normalizzata
+                const mean = total > 0 ? efficiencies.reduce((a, b) => a + b, 0) / total : 1;
+                const variance = total > 0 ? efficiencies.reduce((sum, eff) => sum + Math.pow(eff - mean, 2), 0) / total : 0;
+                const F = Math.exp(-variance * 3); // Mapping empirico
+                
+                return {
+                    A: A_norm,
+                    E: E_norm,
+                    C: C_norm,
+                    D: D,
+                    F: F,
+                    raw: { A, E, C } // Valori non normalizzati per riferimento
+                };
+            }
+        }
+
+        // =====================
+        // INTEGRAZIONE CON IL LABORATORIO ESISTENTE
+        // =====================
+
+        // Modifica MINIMA alla classe esistente: aggiungi questo metodo
+        StabilityLab.prototype.updatePhiFMetrics = function() {
+            const efficiencies = this.nodes.map(n => n.efficiency);
+            const phiF = PhiFAnalysis.calculate(efficiencies);
+            
+            // Aggiorna display
+            document.getElementById('phi-a-value').textContent = (phiF.A * 100).toFixed(1) + '%';
+            document.getElementById('phi-e-value').textContent = (phiF.E * 100).toFixed(1) + '%';
+            document.getElementById('phi-c-value').textContent = (phiF.C * 100).toFixed(1) + '%';
+            document.getElementById('phi-d-value').textContent = phiF.D.toFixed(1) + '%';
+            document.getElementById('phi-f-value').textContent = phiF.F.toFixed(2);
+            
+            // Aggiorna barre
+            document.getElementById('phi-d-bar').style.width = Math.min(phiF.D * 5, 100) + '%';
+            document.getElementById('phi-f-bar').style.width = (phiF.F * 100) + '%';
+            
+            // Cambia colore in base a D
+            const dBar = document.getElementById('phi-d-bar');
+            if (phiF.D < 10) {
+                dBar.style.background = '#4CAF50'; // Verde: sano
+            } else if (phiF.D < 20) {
+                dBar.style.background = '#FF9800'; // Arancione: attenzione
+            } else {
+                dBar.style.background = '#F44336'; // Rosso: patologico
+            }
+            
+            // Cambia colore in base a F
+            const fBar = document.getElementById('phi-f-bar');
+            if (phiF.F > 0.75) {
+                fBar.style.background = '#2196F3'; // Blu: risonanza
+            } else if (phiF.F > 0.5) {
+                fBar.style.background = '#FF9800'; // Arancione: risonanza bassa
+            } else {
+                fBar.style.background = '#F44336'; // Rosso: caos
+            }
+        };
+
+        // =====================
         // Inizializza il laboratorio
+        // =====================
         window.onload = () => {
             window.lab = new StabilityLab();
             console.log('🧪 Laboratorio di Stabilità pronto!');
             console.log('Usa window.lab per accedere al laboratorio dalla console.');
         };
-    </script>
-</body>
-</html>
-COME USARE QUESTA VERSIONE CORRETTA:
-1. COPIA E SALVA:
-Copia tutto il codice sopra
-
-Salva come laboratorio-funzionante.html
-
-2. APRILO NEL BROWSER:
-Doppio clic sul file
-
-Dovresti vedere IMMEDIATAMENTE:
-
-Cerchio con pallini colorati al centro
-
-Grafici per varianza e Φ
-
-Heatmap colorata
-
-3. TEST RAPIDO:
-Clicca ⚡ Sistema Estrattivo
-
-Clicca ▶️ Avvia Esperimento
-
-Osserva in 5 secondi:
-
-Un pallino diventa ROSSO e GROSSO
-
-Varianza sale a 10, 20, 100...
-
-Φ scende sotto 0.3
-
-Compare allarme di collasso
-
-4. SE ANCORA NON VEDI I PALLINI:
-Premi F12 (Console del browser)
-
-Controlla se ci sono errori rossi
-
-Ricarica la pagina (F5)
-
-VERSIONE ANCORA PIÙ SEMPLICE (SE IL PROBLEMA PERSISTE):
-Se hai ancora problemi, prova questa versione minimalista che sicuramente funziona:
-
-html
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Lab Stabilità Semplice</title>
-    <style>
-        body { font-family: Arial; margin: 20px; }
-        canvas { border: 1px solid #ccc; background: #f9f9f9; }
-        button { padding: 10px; margin: 5px; }
-    </style>
-</head>
-<body>
-    <h1>🧪 Test Visivo Sistema</h1>
-    <button onclick="startEquity()">Equità</button>
-    <button onclick="startExtractive()">Estrattivo</button>
-    <button onclick="reset()">Reset</button>
-    <br><br>
-    <canvas id="canvas" width="600" height="400"></canvas>
-    <div id="status" style="margin-top:10px; font-size:18px;">🟢 Sistema Stabile</div>
-    
-    <script>
-        const canvas = document.getElementById('canvas');
-        const ctx = canvas.getContext('2d');
-        const status = document.getElementById('status');
-        
-        let nodes = [];
-        let isRunning = false;
-        
-        function init() {
-            nodes = [];
-            for (let i = 0; i < 6; i++) {
-                nodes.push({
-                    x: 300 + 150 * Math.cos(i * Math.PI/3),
-                    y: 200 + 150 * Math.sin(i * Math.PI/3),
-                    size: 20,
-                    value: 1.0
-                });
-            }
-            draw();
-        }
-        
-        function draw() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            // Nodi
-            nodes.forEach(node => {
-                ctx.fillStyle = node.value > 1.5 ? 'red' : 'green';
-                ctx.beginPath();
-                ctx.arc(node.x, node.y, node.size, 0, Math.PI*2);
-                ctx.fill();
-                ctx.fillStyle = 'white';
-                ctx.fillText(node.value.toFixed(2), node.x-10, node.y+5);
-            });
-            
-            // Connessioni
-            ctx.strokeStyle = 'rgba(0,0,0,0.2)';
-            for (let i = 0; i < nodes.length; i++) {
-                for (let j = i+1; j < nodes.length; j++) {
-                    ctx.beginPath();
-                    ctx.moveTo(nodes[i].x, nodes[i].y);
-                    ctx.lineTo(nodes[j].x, nodes[j].y);
-                    ctx.stroke();
-                }
-            }
-        }
-        
-        function startEquity() {
-            isRunning = true;
-            status.textContent = '🟢 Equità Forzata';
-            
-            function update() {
-                if (!isRunning) return;
-                
-                // Equalizza valori
-                const avg = nodes.reduce((s,n) => s + n.value, 0) / nodes.length;
-                nodes.forEach(node => {
-                    node.value += (avg - node.value) * 0.1;
-                    node.size = 15 + node.value * 5;
-                });
-                
-                draw();
-                requestAnimationFrame(update);
-            }
-            update();
-        }
-        
-        function startExtractive() {
-            isRunning = true;
-            status.textContent = '🔴 Sistema Estrattivo';
-            
-            function update() {
-                if (!isRunning) return;
-                
-                // Un nodo cresce, altri decadono
-                nodes.forEach((node, i) => {
-                    if (i === 0) {
-                        node.value *= 1.05; // Cresce
-                    } else {
-                        node.value *= 0.98; // Decade
-                    }
-                    node.size = 15 + node.value * 5;
-                });
-                
-                draw();
-                requestAnimationFrame(update);
-            }
-            update();
-        }
-        
-        function reset() {
-            isRunning = false;
-            init();
-            status.textContent = '🟢 Sistema Resettato';
-        }
-        
-        // Inizia
-        init();
     </script>
 </body>
 </html>
