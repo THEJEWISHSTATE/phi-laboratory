@@ -3,194 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    
-    <!-- Meta tags descrittivi -->
     <title>Φ-F Laboratory: Φ-RISONANZA 3.0</title>
-    <meta name="description" content="Multiverso Simulato - Manifesto per Simulazioni Numericamente Consapevoli">
-    <meta name="keywords" content="epistemologia, simulazione, Kuramoto, algoritmi, consapevolezza numerica">
-    <meta name="author" content="Φ-F Laboratory">
-    
-    <!-- Open Graph per social media -->
-    <meta property="og:title" content="Φ-RISONANZA 3.0 - La Rivoluzione Epistemologica">
-    <meta property="og:description" content="Dalle simulazioni come strumento alle simulazioni come pratica riflessiva">
-    <meta property="og:type" content="website">
-    
-    <!-- Stile minimale ma elegante -->
     <style>
-        :root {
-            --phi-gold: #c9a53c;
-            --phi-dark: #1a1a2e;
-            --phi-light: #f5f5f5;
-            --phi-accent: #4a6fa5;
-            --phi-warning: #d32f2f;
-            --phi-success: #388e3c;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.7;
-            color: var(--phi-dark);
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            max-width: 1200px;
-            margin: 0 auto;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            min-height: 100vh;
             padding: 20px;
         }
-        
         .container {
+            max-width: 1000px;
+            margin: 0 auto;
             background: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-radius: 20px;
             padding: 40px;
-            margin-top: 20px;
-            border: 2px solid var(--phi-gold);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
         }
-        
-        header {
-            text-align: center;
-            padding: 30px 0;
-            border-bottom: 3px solid var(--phi-gold);
+        header { 
+            text-align: center; 
+            padding-bottom: 30px;
+            border-bottom: 3px solid #c9a53c;
             margin-bottom: 40px;
         }
-        
-        h1 {
-            color: var(--phi-dark);
-            font-size: 2.8rem;
-            margin-bottom: 10px;
-            letter-spacing: 1px;
-        }
-        
         .phi-symbol {
-            font-size: 3.5rem;
-            color: var(--phi-gold);
+            font-size: 60px;
+            color: #c9a53c;
             font-weight: bold;
+            margin-bottom: 10px;
         }
-        
-        .subtitle {
-            color: var(--phi-accent);
-            font-size: 1.4rem;
-            font-style: italic;
-            margin-bottom: 20px;
+        h1 { 
+            color: #2d3748; 
+            font-size: 2.5rem;
+            margin-bottom: 10px;
         }
-        
-        .version-badge {
+        .badge {
             display: inline-block;
-            background: var(--phi-gold);
+            background: #c9a53c;
             color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
+            padding: 8px 20px;
+            border-radius: 25px;
             font-weight: bold;
-            margin: 10px 0;
+            margin: 15px 0;
         }
-        
         h2 {
-            color: var(--phi-dark);
-            border-left: 5px solid var(--phi-gold);
+            color: #4a5568;
+            border-left: 5px solid #c9a53c;
             padding-left: 15px;
             margin: 40px 0 20px 0;
-            font-size: 1.8rem;
         }
-        
-        h3 {
-            color: var(--phi-accent);
-            margin: 25px 0 15px 0;
-            font-size: 1.4rem;
-        }
-        
-        .section {
-            margin: 30px 0;
-            padding: 20px;
+        .card {
+            background: #f7fafc;
+            border: 1px solid #e2e8f0;
             border-radius: 10px;
-            background: linear-gradient(to right, #f9f9f9, #fff);
-        }
-        
-        .warning-box {
-            background: #fff8e1;
-            border-left: 5px solid var(--phi-warning);
-            padding: 20px;
+            padding: 25px;
             margin: 20px 0;
-            border-radius: 5px;
         }
-        
-        .success-box {
-            background: #e8f5e9;
-            border-left: 5px solid var(--phi-success);
+        .warning {
+            background: #fffaf0;
+            border-left: 5px solid #dd6b20;
             padding: 20px;
-            margin: 20px 0;
-            border-radius: 5px;
+            margin: 25px 0;
+            border-radius: 0 8px 8px 0;
         }
-        
         code, pre {
-            background: #f5f5f5;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-family: 'Courier New', monospace;
-            font-size: 0.95rem;
-        }
-        
-        pre {
+            background: #2d3748;
+            color: #e2e8f0;
             padding: 15px;
-            margin: 15px 0;
+            border-radius: 8px;
             overflow-x: auto;
-            border-left: 3px solid var(--phi-accent);
+            font-family: 'Courier New', monospace;
+            margin: 15px 0;
         }
-        
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 20px;
-            margin: 20px 0;
+            margin: 25px 0;
         }
-        
-        .card {
-            background: white;
-            border: 1px solid #e0e0e0;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease;
-        }
-        
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
-        }
-        
         footer {
             text-align: center;
             margin-top: 50px;
-            padding-top: 20px;
-            border-top: 1px solid #e0e0e0;
-            color: #666;
-            font-size: 0.9rem;
+            padding-top: 25px;
+            border-top: 1px solid #e2e8f0;
+            color: #718096;
         }
-        
-        .manifesto-point {
-            background: #e3f2fd;
-            padding: 15px;
-            margin: 15px 0;
-            border-radius: 8px;
-            border-left: 4px solid var(--phi-accent);
-        }
-        
         @media (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
-            
-            .container {
-                padding: 20px;
-            }
-            
-            h1 {
-                font-size: 2rem;
-            }
+            .container { padding: 20px; }
+            h1 { font-size: 1.8rem; }
         }
     </style>
 </head>
@@ -199,246 +101,133 @@
         <header>
             <div class="phi-symbol">Φ</div>
             <h1>Φ-F LABORATORY</h1>
-            <div class="version-badge">Versione 3.0 - Edizione Epistemologica</div>
-            <p class="subtitle">Φ-RISONANZA: Multiverso Simulato e Consapevolezza Numerica</p>
-            <p><strong>Data:</strong> 2025 | <strong>Autore:</strong> Sistema AI con supervisione critica</p>
+            <div class="badge">Versione 3.0 - Edizione Epistemologica</div>
+            <p style="color: #4a5568; font-size: 1.2rem;">Φ-RISONANZA: Multiverso Simulato e Consapevolezza Numerica</p>
+            <p><strong>2025</strong> | Sistema AI con supervisione critica</p>
         </header>
 
-        <div class="warning-box">
-            <strong>⚠️ AVVISO EPISTEMOLOGICO:</strong> Questo non è un semplice software. È un 
-            <em>manifesto metodologico</em> che trasforma la simulazione computazionale da 
-            "strumento tecnico" a "pratica riflessiva".
+        <div class="warning">
+            <strong>⚠️ AVVISO EPISTEMOLOGICO:</strong> Questo non è un semplice software. 
+            È un <em>manifesto metodologico</em> che trasforma la simulazione computazionale.
         </div>
 
-        <section class="section">
-            <h2>🎯 IL PARADIGMA EPISTEMOLOGICO</h2>
-            <blockquote style="font-style: italic; padding: 20px; border-left: 4px solid var(--phi-gold); margin: 20px 0;">
-                "Non esiste simulazione senza errore numerico. L'errore non è 'rumore' da eliminare, 
-                ma una proprietà costitutiva che modella la realtà che vediamo. 
-                Ogni algoritmo crea una diversa realtà simulata."
-            </blockquote>
-            
-            <p><strong>Dalla versione 2.0 alla 3.0:</strong></p>
-            <ul style="margin-left: 20px; margin-bottom: 20px;">
-                <li><strong>1.0:</strong> Simulazione tecnica del modello di Kuramoto</li>
-                <li><strong>2.0:</strong> Confronto RK4 vs Eulero come questione di accuratezza</li>
-                <li><strong>3.0:</strong> <em>Multiverso Simulato</em> - Esplorazione sistematica di come algoritmi diversi creano realtà diverse</li>
-            </ul>
+        <section>
+            <h2>🎯 IL PARADIGMA</h2>
+            <div class="card">
+                <p style="font-style: italic; color: #2d3748;">
+                    "Non esiste simulazione senza errore numerico. L'errore non è 'rumore' da eliminare, 
+                    ma una proprietà costitutiva che modella la realtà che vediamo."
+                </p>
+            </div>
         </section>
 
-        <section class="section">
-            <h2>🔬 IL CONCETTO DI "MULTIVERSO SIMULATO"</h2>
-            
-            <p>Invece di una singola simulazione, eseguiamo una <strong>famiglia sistematica</strong>:</p>
-            
+        <section>
+            <h2>🔬 MULTIVERSO SIMULATO</h2>
             <div class="grid">
                 <div class="card">
                     <h3>📐 Parametri Variati</h3>
-                    <ul>
-                        <li>4 valori di <code>dt</code> (0.1, 0.05, 0.01, 0.005)</li>
-                        <li>3 metodi di integrazione (Eulero, RK4, Verlet)</li>
-                        <li>5 repliche statistiche per combinazione</li>
-                        <li>2 regimi sociali (Equity vs Extractive)</li>
+                    <ul style="margin-left: 20px;">
+                        <li>4 valori di <code>dt</code></li>
+                        <li>3 metodi di integrazione</li>
+                        <li>5 repliche statistiche</li>
+                        <li>2 regimi sociali</li>
                     </ul>
-                    <p style="margin-top: 10px; font-weight: bold;">Totale: 120 universi simulati</p>
+                    <p style="margin-top: 15px; font-weight: bold; color: #c9a53c;">Totale: 120 universi simulati</p>
                 </div>
-                
                 <div class="card">
-                    <h3>🎭 Teatro dei Presupposti</h3>
+                    <h3>🎭 Presupposti</h3>
                     <pre><code>presupposti = {
     "p1": "RK4 è il riferimento",
     "p2": "Eulero può introdurre bias",
-    "p3": "Differenze >15% = fragilità",
-    "p4": "Robustezza > Accuratezza",
-    "p5": "Ogni metodo vede una realtà diversa"
+    "p3": "Differenze >15% = fragilità"
 }</code></pre>
                 </div>
             </div>
         </section>
 
-        <section class="section">
-            <h2>📜 MANIFESTO IN PILLOLE</h2>
-            
-            <div class="manifesto-point">
-                <h3>Articolo 1: Riconoscimento dell'Irriducibilità Numerica</h3>
-                <p>Ogni algoritmo numerico crea una <strong>realtà simulata diversa</strong>. 
-                La scelta dell'integratore è una scelta ontologica, non solo tecnica.</p>
-            </div>
-            
-            <div class="manifesto-point">
-                <h3>Articolo 3: Protocolli Obbigatori</h3>
-                <p>Prima di pubblicare: validazione multi-metodo, mappe delle zone di inganno, 
-                dichiarazione esplicita di sensibilità numerica.</p>
-            </div>
-            
-            <div class="manifesto-point">
-                <h3>Articolo 5: Imperativo Etico della Trasparenza</h3>
-                <p>Non nascondere l'algoritmo nelle note. Avvertire quando le conclusioni sono 
-                algoritmo-dipendenti. Educare alla lettura critica.</p>
-            </div>
-        </section>
-
-        <section class="section">
-            <h2>🚀 COSA SUCCEDE IN PRATICA</h2>
-            
-            <h3>Scenario: Soglia di Sincronizzazione</h3>
-            <p>Con ε = 0.08 (appena sotto la soglia teorica ε_c ≈ 0.127):</p>
-            
+        <section>
+            <h2>🚀 SCENARIO CRITICO</h2>
             <div class="grid">
-                <div class="card" style="border-color: var(--phi-warning);">
-                    <h3>👑 Eulero Dice:</h3>
-                    <p style="font-size: 1.2rem; color: var(--phi-warning);">"Φ = 0.72"</p>
-                    <p><strong>Narrativa:</strong> "Il sistema si sincronizza!"</p>
-                    <p><strong>Confidenza:</strong> ⚠️ Bassa - possibile artefatto</p>
+                <div class="card" style="border-color: #e53e3e;">
+                    <h3 style="color: #e53e3e;">👑 Eulero Dice:</h3>
+                    <p style="font-size: 1.5rem; color: #e53e3e; font-weight: bold;">"Φ = 0.72"</p>
+                    <p>Narrativa: "Il sistema si sincronizza!"</p>
+                    <p style="color: #e53e3e;">⚠️ Possibile artefatto numerico</p>
                 </div>
-                
-                <div class="card" style="border-color: var(--phi-success);">
-                    <h3>🔬 RK4 Dice:</h3>
-                    <p style="font-size: 1.2rem; color: var(--phi-success);">"Φ = 0.35"</p>
-                    <p><strong>Narrativa:</strong> "Il sistema non si sincronizza"</p>
-                    <p><strong>Confidenza:</strong> ✅ Alta - risultato robusto</p>
+                <div class="card" style="border-color: #38a169;">
+                    <h3 style="color: #38a169;">🔬 RK4 Dice:</h3>
+                    <p style="font-size: 1.5rem; color: #38a169; font-weight: bold;">"Φ = 0.35"</p>
+                    <p>Narrativa: "Il sistema non si sincronizza"</p>
+                    <p style="color: #38a169;">✅ Risultato robusto</p>
                 </div>
-            </div>
-            
-            <div class="warning-box" style="margin-top: 20px;">
-                <strong>LA GRANDE INVERNIONE NARRATIVA:</strong> Due algoritmi, due realtà opposte. 
-                La "verità" dipende dall'algoritmo scelto. Φ-RISONANZA 3.0 non nasconde questo fatto, 
-                lo rende <em>il punto centrale dell'analisi</em>.
             </div>
         </section>
 
-        <section class="section">
-            <h2>💻 CODICE D'ESEMPIO (Concettuale)</h2>
-            
+        <section>
+            <h2>💻 ESEMPIO CONCETTUALE</h2>
             <pre><code># Non più: "Eseguo una simulazione"
-# Ora: "Esploro un multiverso di simulazioni"
+# Ora: "Esploro un multiverso"
 
 class MultiversoKuramoto:
     def esplorare_multiverso(self):
-        risultati = []
-        
         for metodo in ['euler', 'rk4', 'verlet']:
             for dt in [0.1, 0.05, 0.01, 0.005]:
                 for replica in range(5):
-                    # Esegui simulazione
                     phi = self.simulare(metodo, dt)
                     
                     # Analizza robustezza
-                    robustezza = self.calcola_robustezza(risultati)
-                    
-                    # Genera narrativa con avvisi
-                    narrativa = self.generare_narrativa(phi, metodo, dt)
-                    
-                    risultati.append({
-                        'metodo': metodo,
-                        'dt': dt,
-                        'phi': phi,
-                        'robustezza': robustezza,
-                        'narrativa': narrativa,
-                        'avvisi': self.generare_avvisi(phi, metodo, dt)
-                    })
-        
-        return risultati</code></pre>
-            
-            <p style="margin-top: 15px;">Il sistema produce automaticamente <strong>dichiarazioni di sensibilità numerica</strong> 
-            e <strong>mappe di robustezza</strong> visuali.</p>
+                    # Genera narrativa
+                    # Produce avvisi</code></pre>
         </section>
 
-        <section class="section">
-            <h2>📊 OUTPUT E VISUALIZZAZIONI</h2>
-            
-            <p>6 visualizzazioni integrate generano una comprensione olistica:</p>
-            
+        <section>
+            <h2>📊 VISUALIZZAZIONI</h2>
             <div class="grid">
-                <div class="card">
-                    <h4>1. 🌍 Mappa Robustezza</h4>
-                    <p>Quali dt mostrano accordo tra metodi?</p>
-                </div>
-                <div class="card">
-                    <h4>2. 📊 Confronto Metodi</h4>
-                    <p>Φ finale per ogni algoritmo a dt fisso</p>
-                </div>
-                <div class="card">
-                    <h4>3. 📈 Convergenza dt</h4>
-                    <p>Come Φ cambia con dt decrescente</p>
-                </div>
-                <div class="card">
-                    <h4>4. 🔥 Heatmap</h4>
-                    <p>Φ in funzione di (metodo, dt)</p>
-                </div>
-                <div class="card">
-                    <h4>5. ⏳ Evoluzione</h4>
-                    <p>Confronto temporale Eulero vs RK4</p>
-                </div>
-                <div class="card">
-                    <h4>6. 📜 Dichiarazione</h4>
-                    <p>Analisi epistemologica incorporata</p>
-                </div>
+                <div class="card">🌍 Mappa Robustezza</div>
+                <div class="card">📊 Confronto Metodi</div>
+                <div class="card">📈 Convergenza dt</div>
+                <div class="card">🔥 Heatmap</div>
+                <div class="card">⏳ Evoluzione</div>
+                <div class="card">📜 Dichiarazione</div>
             </div>
         </section>
 
-        <div class="success-box">
-            <h3>✅ COSA IMPARANO GLI UTENTI</h3>
-            <p>Φ-RISONANZA 3.0 insegna che:</p>
-            <ul style="margin-left: 20px; margin-top: 10px;">
-                <li>La <strong>robustezza tra metodi</strong> è più importante di qualsiasi singolo risultato</li>
-                <li>Le <strong>dichiarazioni di sensibilità</strong> dovrebbero essere standard nella pubblicazione</li>
-                <li>Molte "scoperte" in simulazioni sociali potrebbero essere <strong>artefatti algoritmici</strong></li>
-                <li>La <strong>consapevolezza epistemologica</strong> è parte integrante del metodo scientifico computazionale</li>
+        <div class="card" style="background: #f0fff4; border-color: #38a169;">
+            <h3 style="color: #38a169;">✅ COSA IMPARIAMO</h3>
+            <ul style="margin-left: 20px;">
+                <li>La <strong>robustezza tra metodi</strong> è fondamentale</li>
+                <li>Le <strong>dichiarazioni di sensibilità</strong> dovrebbero essere standard</li>
+                <li>Molte "scoperte" potrebbero essere <strong>artefatti algoritmici</strong></li>
             </ul>
         </div>
 
-        <section class="section">
-            <h2>🔗 COME PROCEDERE</h2>
-            
+        <section>
+            <h2>🔗 COME USARLO</h2>
             <div class="grid">
                 <div class="card">
-                    <h3>📥 Ottenere il Codice</h3>
-                    <pre style="background: #333; color: #fff;">git clone https://github.com/phi-laboratory/phi-risonanza-3.0.git</pre>
+                    <h4>📥 Ottenere</h4>
+                    <pre style="background: #2d3748; color: white; padding: 10px; font-size: 0.9rem;">git clone https://github.com/phi-laboratory/phi-risonanza-3.0.git</pre>
                 </div>
-                
                 <div class="card">
-                    <h3>▶️ Eseguire</h3>
-                    <pre style="background: #333; color: #fff;">cd phi-risonanza-3.0
+                    <h4>▶️ Eseguire</h4>
+                    <pre style="background: #2d3748; color: white; padding: 10px; font-size: 0.9rem;">cd phi-risonanza-3.0
 python phi_risonanza_3.0.py</pre>
                 </div>
-                
-                <div class="card">
-                    <h3>🔍 Esplorare</h3>
-                    <p>Studia i casi critici in <code>examples/</code> e partecipa alle discussioni epistemologiche nelle Issues.</p>
-                </div>
             </div>
-        </section>
-
-        <section class="section">
-            <h2>🌌 LA PROSSIMA FRONTIERA</h2>
-            
-            <p><strong>Versione 4.0 in sviluppo:</strong></p>
-            <ul style="margin-left: 20px; margin-top: 10px;">
-                <li>Estensione a modelli oltre Kuramoto</li>
-                <li>Interfaccia web interattiva per esplorazione</li>
-                <li>Database pubblico di artefatti numerici noti</li>
-                <li>Strumenti per revisione tra pari computazionale</li>
-                <li>Framework etici per la simulazione sociale</li>
-            </ul>
-            
-            <p style="margin-top: 20px; font-style: italic;">
-                "La vera rivoluzione non è nell'algoritmo più accurato, 
-                ma nella consapevolezza che ogni algoritmo crea il mondo che misura."
-            </p>
         </section>
 
         <footer>
             <p>Φ-F Laboratory · 2025 · Edizione Consapevole</p>
-            <p style="margin-top: 10px; font-size: 0.8rem; color: #999;">
+            <p style="margin-top: 15px; font-size: 0.9rem; color: #718096;">
                 Licenza Creative Commons · 
-                <a href="https://github.com/phi-laboratory" style="color: var(--phi-accent);">GitHub</a> · 
-                Partecipa alla rivoluzione epistemologica
+                <a href="https://github.com/phi-laboratory" style="color: #c9a53c;">GitHub</a>
             </p>
-            <p style="margin-top: 15px; padding: 10px; background: #f5f5f5; border-radius: 5px;">
-                <strong>Ricorda:</strong> Se cambiando algoritmo cambia la narrativa, 
-                allora la narrativa è proprietà dell'algoritmo, non del fenomeno.
-            </p>
+            <div class="card" style="margin-top: 20px; background: #f7fafc;">
+                <p style="font-style: italic; color: #4a5568;">
+                    "Se cambiando algoritmo cambia la narrativa, allora la narrativa 
+                    è proprietà dell'algoritmo, non del fenomeno."
+                </p>
+            </div>
         </footer>
     </div>
 </body>
