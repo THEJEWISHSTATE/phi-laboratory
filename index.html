@@ -9,64 +9,102 @@
         body { 
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             line-height: 1.6; 
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #333;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e2e8f0;
             min-height: 100vh;
             padding: 20px;
+            transition: background 0.5s ease;
         }
         .container {
             max-width: 1000px;
             margin: 0 auto;
-            background: white;
+            background: rgba(26, 32, 44, 0.95);
             border-radius: 20px;
             padding: 40px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            border: 1px solid #c9a53c;
+            transition: transform 0.3s ease;
+        }
+        .container:hover {
+            transform: translateY(-5px);
         }
         header { 
             text-align: center; 
             padding-bottom: 30px;
             border-bottom: 3px solid #c9a53c;
             margin-bottom: 40px;
+            position: relative;
         }
         .phi-symbol {
             font-size: 60px;
             color: #c9a53c;
             font-weight: bold;
             margin-bottom: 10px;
+            cursor: pointer;
+            transition: transform 0.5s ease;
+        }
+        .phi-symbol:hover {
+            transform: rotate(360deg) scale(1.2);
         }
         h1 { 
-            color: #2d3748; 
+            color: #f7fafc; 
             font-size: 2.5rem;
             margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
         }
         .badge {
             display: inline-block;
-            background: #c9a53c;
-            color: white;
+            background: linear-gradient(45deg, #c9a53c, #e6c878);
+            color: #1a202c;
             padding: 8px 20px;
             border-radius: 25px;
             font-weight: bold;
             margin: 15px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+        .badge:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(201, 165, 60, 0.4);
         }
         h2 {
-            color: #4a5568;
+            color: #c9a53c;
             border-left: 5px solid #c9a53c;
             padding-left: 15px;
             margin: 40px 0 20px 0;
+            cursor: pointer;
+            transition: padding-left 0.3s ease;
+        }
+        h2:hover {
+            padding-left: 25px;
         }
         .card {
-            background: #f7fafc;
-            border: 1px solid #e2e8f0;
+            background: rgba(45, 55, 72, 0.8);
+            border: 1px solid #4a5568;
             border-radius: 10px;
             padding: 25px;
             margin: 20px 0;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .card:hover {
+            border-color: #c9a53c;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
         .warning {
-            background: #fffaf0;
+            background: rgba(221, 107, 32, 0.1);
             border-left: 5px solid #dd6b20;
             padding: 20px;
             margin: 25px 0;
             border-radius: 0 8px 8px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .warning:hover {
+            background: rgba(221, 107, 32, 0.2);
+            padding-left: 30px;
         }
         code, pre {
             background: #2d3748;
@@ -76,6 +114,11 @@
             overflow-x: auto;
             font-family: 'Courier New', monospace;
             margin: 15px 0;
+            border: 1px solid #4a5568;
+            transition: border-color 0.3s ease;
+        }
+        code:hover, pre:hover {
+            border-color: #c9a53c;
         }
         .grid {
             display: grid;
@@ -87,44 +130,217 @@
             text-align: center;
             margin-top: 50px;
             padding-top: 25px;
-            border-top: 1px solid #e2e8f0;
-            color: #718096;
+            border-top: 1px solid #4a5568;
+            color: #a0aec0;
         }
+        
+        /* Tasti e interattività */
+        .btn {
+            background: linear-gradient(45deg, #4a5568, #2d3748);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 10px 5px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn:hover {
+            background: linear-gradient(45deg, #c9a53c, #b7953c);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(201, 165, 60, 0.3);
+        }
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 30px 0;
+            padding: 20px;
+            background: rgba(26, 32, 44, 0.8);
+            border-radius: 10px;
+        }
+        
+        /* Modal e overlay */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background: #1a202c;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 600px;
+            width: 90%;
+            border: 2px solid #c9a53c;
+            position: relative;
+            animation: modalAppear 0.3s ease;
+        }
+        @keyframes modalAppear {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: #c9a53c;
+            font-size: 24px;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background 0.3s ease;
+        }
+        .close-btn:hover {
+            background: rgba(201, 165, 60, 0.2);
+        }
+        
+        /* Stili dinamici */
+        .highlight {
+            background: rgba(201, 165, 60, 0.2);
+            border-radius: 5px;
+            padding: 2px 6px;
+            transition: all 0.3s ease;
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(201, 165, 60, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(201, 165, 60, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(201, 165, 60, 0); }
+        }
+        
+        /* Toggle per tema chiaro/scuro */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #2d3748;
+            border: 2px solid #c9a53c;
+            color: #c9a53c;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+        .theme-toggle:hover {
+            transform: rotate(180deg);
+            background: #c9a53c;
+            color: #1a202c;
+        }
+        
+        /* Effetto typewriter */
+        .typewriter {
+            overflow: hidden;
+            border-right: 3px solid #c9a53c;
+            white-space: nowrap;
+            margin: 0 auto;
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #c9a53c }
+        }
+        
         @media (max-width: 768px) {
             .container { padding: 20px; }
             h1 { font-size: 1.8rem; }
+            .controls { flex-direction: column; }
+            .theme-toggle {
+                top: 10px;
+                right: 10px;
+                width: 40px;
+                height: 40px;
+                font-size: 16px;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Toggle Tema -->
+    <div class="theme-toggle" id="themeToggle">☀️</div>
+
     <div class="container">
         <header>
-            <div class="phi-symbol">Φ</div>
-            <h1>Φ-F LABORATORY</h1>
-            <div class="badge">Versione 3.0 - Edizione Epistemologica</div>
-            <p style="color: #4a5568; font-size: 1.2rem;">Φ-RISONANZA: Multiverso Simulato e Consapevolezza Numerica</p>
+            <div class="phi-symbol" id="phiSymbol">Φ</div>
+            <h1 id="mainTitle">Φ-F LABORATORY</h1>
+            <button class="badge" id="versionBadge">Versione 3.0 - Edizione Epistemologica</button>
+            <p style="color: #cbd5e0; font-size: 1.2rem;" id="subtitle">Φ-RISONANZA: Multiverso Simulato e Consapevolezza Numerica</p>
             <p><strong>2025</strong> | Sistema AI con supervisione critica</p>
         </header>
 
-        <div class="warning">
+        <div class="warning" id="epistemWarning">
             <strong>⚠️ AVVISO EPISTEMOLOGICO:</strong> Questo non è un semplice software. 
             È un <em>manifesto metodologico</em> che trasforma la simulazione computazionale.
         </div>
 
+        <!-- Controlli Interattivi -->
+        <div class="controls">
+            <button class="btn" onclick="showModal('eulerModal')">
+                👑 Simulazione Eulero
+            </button>
+            <button class="btn" onclick="showModal('rk4Modal')">
+                🔬 Simulazione RK4
+            </button>
+            <button class="btn" onclick="toggleMultiverse()">
+                🌍 Mostra/Nascondi Multiverso
+            </button>
+            <button class="btn" onclick="toggleNarrative()">
+                📖 Cambia Narrativa
+            </button>
+            <button class="btn" onclick="runSimulation()">
+                ⚡ Simula Ora
+            </button>
+        </div>
+
         <section>
-            <h2>🎯 IL PARADIGMA</h2>
-            <div class="card">
-                <p style="font-style: italic; color: #2d3748;">
+            <h2 onclick="toggleSection(this)">🎯 IL PARADIGMA</h2>
+            <div class="card" onclick="highlightText(this)">
+                <p style="font-style: italic; color: #f7fafc;" id="paradigmText">
                     "Non esiste simulazione senza errore numerico. L'errore non è 'rumore' da eliminare, 
                     ma una proprietà costitutiva che modella la realtà che vediamo."
                 </p>
             </div>
         </section>
 
-        <section>
-            <h2>🔬 MULTIVERSO SIMULATO</h2>
+        <section id="multiverseSection">
+            <h2 onclick="toggleSection(this)">🔬 MULTIVERSO SIMULATO</h2>
             <div class="grid">
-                <div class="card">
+                <div class="card" onclick="showDetails('params')">
                     <h3>📐 Parametri Variati</h3>
                     <ul style="margin-left: 20px;">
                         <li>4 valori di <code>dt</code></li>
@@ -132,11 +348,11 @@
                         <li>5 repliche statistiche</li>
                         <li>2 regimi sociali</li>
                     </ul>
-                    <p style="margin-top: 15px; font-weight: bold; color: #c9a53c;">Totale: 120 universi simulati</p>
+                    <p style="margin-top: 15px; font-weight: bold; color: #c9a53c;" id="universeCount">Totale: 120 universi simulati</p>
                 </div>
-                <div class="card">
+                <div class="card" onclick="showDetails('presupposti')">
                     <h3>🎭 Presupposti</h3>
-                    <pre><code>presupposti = {
+                    <pre><code id="presuppostiCode">presupposti = {
     "p1": "RK4 è il riferimento",
     "p2": "Eulero può introdurre bias",
     "p3": "Differenze >15% = fragilità"
@@ -145,90 +361,426 @@
             </div>
         </section>
 
-        <section>
-            <h2>🚀 SCENARIO CRITICO</h2>
+        <section id="scenarioSection">
+            <h2 onclick="toggleSection(this)">🚀 SCENARIO CRITICO</h2>
             <div class="grid">
-                <div class="card" style="border-color: #e53e3e;">
+                <div class="card" style="border-color: #e53e3e;" onclick="showModal('eulerModal')">
                     <h3 style="color: #e53e3e;">👑 Eulero Dice:</h3>
-                    <p style="font-size: 1.5rem; color: #e53e3e; font-weight: bold;">"Φ = 0.72"</p>
-                    <p>Narrativa: "Il sistema si sincronizza!"</p>
+                    <p style="font-size: 1.5rem; color: #e53e3e; font-weight: bold;" id="eulerPhi">"Φ = 0.72"</p>
+                    <p>Narrativa: <span id="eulerNarrative">"Il sistema si sincronizza!"</span></p>
                     <p style="color: #e53e3e;">⚠️ Possibile artefatto numerico</p>
                 </div>
-                <div class="card" style="border-color: #38a169;">
+                <div class="card" style="border-color: #38a169;" onclick="showModal('rk4Modal')">
                     <h3 style="color: #38a169;">🔬 RK4 Dice:</h3>
-                    <p style="font-size: 1.5rem; color: #38a169; font-weight: bold;">"Φ = 0.35"</p>
-                    <p>Narrativa: "Il sistema non si sincronizza"</p>
+                    <p style="font-size: 1.5rem; color: #38a169; font-weight: bold;" id="rk4Phi">"Φ = 0.35"</p>
+                    <p>Narrativa: <span id="rk4Narrative">"Il sistema non si sincronizza"</span></p>
                     <p style="color: #38a169;">✅ Risultato robusto</p>
                 </div>
             </div>
-        </section>
-
-        <section>
-            <h2>💻 ESEMPIO CONCETTUALE</h2>
-            <pre><code># Non più: "Eseguo una simulazione"
-# Ora: "Esploro un multiverso"
-
-class MultiversoKuramoto:
-    def esplorare_multiverso(self):
-        for metodo in ['euler', 'rk4', 'verlet']:
-            for dt in [0.1, 0.05, 0.01, 0.005]:
-                for replica in range(5):
-                    phi = self.simulare(metodo, dt)
-                    
-                    # Analizza robustezza
-                    # Genera narrativa
-                    # Produce avvisi</code></pre>
-        </section>
-
-        <section>
-            <h2>📊 VISUALIZZAZIONI</h2>
-            <div class="grid">
-                <div class="card">🌍 Mappa Robustezza</div>
-                <div class="card">📊 Confronto Metodi</div>
-                <div class="card">📈 Convergenza dt</div>
-                <div class="card">🔥 Heatmap</div>
-                <div class="card">⏳ Evoluzione</div>
-                <div class="card">📜 Dichiarazione</div>
+            
+            <!-- Simulazione Visuale -->
+            <div style="margin: 30px 0; text-align: center;">
+                <button class="btn pulse" onclick="toggleVisualization()">
+                    👁️ Mostra Visualizzazione
+                </button>
+                <div id="visualization" style="display: none; margin-top: 20px;">
+                    <canvas id="simCanvas" width="800" height="200" style="max-width: 100%; background: #2d3748; border-radius: 10px;"></canvas>
+                    <div style="margin-top: 10px;">
+                        <button class="btn" onclick="startSimulation()">▶️ Avvia</button>
+                        <button class="btn" onclick="pauseSimulation()">⏸️ Pausa</button>
+                        <button class="btn" onclick="resetSimulation()">🔄 Reset</button>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <div class="card" style="background: #f0fff4; border-color: #38a169;">
-            <h3 style="color: #38a169;">✅ COSA IMPARIAMO</h3>
-            <ul style="margin-left: 20px;">
-                <li>La <strong>robustezza tra metodi</strong> è fondamentale</li>
-                <li>Le <strong>dichiarazioni di sensibilità</strong> dovrebbero essere standard</li>
-                <li>Molte "scoperte" potrebbero essere <strong>artefatti algoritmici</strong></li>
-            </ul>
+        <!-- Modali -->
+        <div id="eulerModal" class="modal">
+            <div class="modal-content">
+                <button class="close-btn" onclick="closeModal('eulerModal')">×</button>
+                <h3 style="color: #e53e3e;">👑 Metodo di Eulero</h3>
+                <p>Il metodo di Eulero utilizza <strong>una sola valutazione</strong> della derivata per passo:</p>
+                <pre><code>θ(t+Δt) = θ(t) + Δt * dθ/dt(t)</code></pre>
+                <p><strong>Problema:</strong> Assume che la derivata resti costante durante tutto il passo Δt.</p>
+                <p><strong>Errore:</strong> O(Δt) - accumula errori sistematici.</p>
+                <p><strong>Esito tipico:</strong> Sovrastima la sincronizzazione fino al <strong>40%</strong>.</p>
+                <button class="btn" style="margin-top: 20px;" onclick="closeModal('eulerModal')">Chiudi</button>
+            </div>
         </div>
 
-        <section>
-            <h2>🔗 COME USARLO</h2>
-            <div class="grid">
-                <div class="card">
-                    <h4>📥 Ottenere</h4>
-                    <pre style="background: #2d3748; color: white; padding: 10px; font-size: 0.9rem;">git clone https://github.com/phi-laboratory/phi-risonanza-3.0.git</pre>
-                </div>
-                <div class="card">
-                    <h4>▶️ Eseguire</h4>
-                    <pre style="background: #2d3748; color: white; padding: 10px; font-size: 0.9rem;">cd phi-risonanza-3.0
-python phi_risonanza_3.0.py</pre>
-                </div>
+        <div id="rk4Modal" class="modal">
+            <div class="modal-content">
+                <button class="close-btn" onclick="closeModal('rk4Modal')">×</button>
+                <h3 style="color: #38a169;">🔬 Metodo RK4</h3>
+                <p>Runge-Kutta 4° ordine usa <strong>quattro valutazioni</strong> intelligenti:</p>
+                <pre><code>k1 = f(t, y)
+k2 = f(t + Δt/2, y + Δt*k1/2)
+k3 = f(t + Δt/2, y + Δt*k2/2)  
+k4 = f(t + Δt, y + Δt*k3)
+y(t+Δt) = y(t) + Δt/6*(k1 + 2k2 + 2k3 + k4)</code></pre>
+                <p><strong>Vantaggio:</strong> Campiona il "futuro" per correggere la traiettoria.</p>
+                <p><strong>Errore:</strong> O(Δt⁴) - molto più preciso.</p>
+                <p><strong>Costo:</strong> 4× più calcoli di Eulero.</p>
+                <button class="btn" style="margin-top: 20px;" onclick="closeModal('rk4Modal')">Chiudi</button>
             </div>
-        </section>
+        </div>
 
         <footer>
             <p>Φ-F Laboratory · 2025 · Edizione Consapevole</p>
-            <p style="margin-top: 15px; font-size: 0.9rem; color: #718096;">
+            <p style="margin-top: 15px; font-size: 0.9rem; color: #a0aec0;">
                 Licenza Creative Commons · 
                 <a href="https://github.com/phi-laboratory" style="color: #c9a53c;">GitHub</a>
             </p>
-            <div class="card" style="margin-top: 20px; background: #f7fafc;">
-                <p style="font-style: italic; color: #4a5568;">
+            <div class="card" style="margin-top: 20px; background: rgba(45, 55, 72, 0.8);">
+                <p style="font-style: italic; color: #cbd5e0;" id="finalQuote">
                     "Se cambiando algoritmo cambia la narrativa, allora la narrativa 
                     è proprietà dell'algoritmo, non del fenomeno."
                 </p>
+                <button class="btn" onclick="changeQuote()" style="margin-top: 10px;">
+                    🔄 Cambia Citazione
+                </button>
             </div>
         </footer>
     </div>
+
+    <script>
+        // Stato dell'applicazione
+        const state = {
+            theme: 'dark',
+            simulationRunning: false,
+            narrativeMode: 0,
+            multiverseVisible: true,
+            currentQuote: 0,
+            quotes: [
+                "Se cambiando algoritmo cambia la narrativa, allora la narrativa è proprietà dell'algoritmo, non del fenomeno.",
+                "L'errore numerico non è un bug da risolvere, ma una voce da ascoltare.",
+                "Ogni simulazione è un atto narrativo, e ogni algoritmo è un narratore diverso.",
+                "La robustezza tra metodi è più importante di qualsiasi singolo risultato.",
+                "Il multiverso simulato rivela che non esiste 'la' simulazione corretta."
+            ],
+            eulerPhi: 0.72,
+            rk4Phi: 0.35,
+            narratives: [
+                { euler: "Il sistema si sincronizza!", rk4: "Il sistema non si sincronizza" },
+                { euler: "Cooperazione emergente!", rk4: "Dinamica caotica" },
+                { euler: "Ordine collettivo", rk4: "Disordine persistente" }
+            ]
+        };
+
+        // Inizializzazione
+        document.addEventListener('DOMContentLoaded', function() {
+            // Event Listeners
+            document.getElementById('phiSymbol').addEventListener('click', spinPhi);
+            document.getElementById('versionBadge').addEventListener('click', showVersionInfo);
+            document.getElementById('epistemWarning').addEventListener('click', toggleWarning);
+            document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+            
+            // Inizializza canvas per simulazione
+            initCanvas();
+            
+            // Mostra effetto typewriter sul titolo
+            typeWriterEffect();
+        });
+
+        // Funzioni principali
+        function spinPhi() {
+            const phi = document.getElementById('phiSymbol');
+            phi.style.transition = 'transform 0.8s ease';
+            phi.style.transform = 'rotate(720deg) scale(1.3)';
+            
+            setTimeout(() => {
+                phi.style.transform = 'rotate(0deg) scale(1)';
+            }, 800);
+        }
+
+        function showVersionInfo() {
+            const badge = document.getElementById('versionBadge');
+            const originalText = badge.textContent;
+            
+            badge.textContent = "🎭 Teatro dei Presupposti Attivato";
+            badge.style.background = 'linear-gradient(45deg, #9c27b0, #673ab7)';
+            
+            setTimeout(() => {
+                badge.textContent = originalText;
+                badge.style.background = 'linear-gradient(45deg, #c9a53c, #e6c878)';
+            }, 2000);
+        }
+
+        function toggleWarning() {
+            const warning = document.getElementById('epistemWarning');
+            warning.classList.toggle('pulse');
+            
+            if (warning.classList.contains('pulse')) {
+                warning.innerHTML = '<strong>🎭 TEATRO ATTIVO:</strong> Stai osservando una <em>costruzione epistemologica</em> in tempo reale.';
+            } else {
+                warning.innerHTML = '<strong>⚠️ AVVISO EPISTEMOLOGICO:</strong> Questo non è un semplice software. È un <em>manifesto metodologico</em> che trasforma la simulazione computazionale.';
+            }
+        }
+
+        function showModal(modalId) {
+            document.getElementById(modalId).style.display = 'flex';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        function toggleMultiverse() {
+            const section = document.getElementById('multiverseSection');
+            const count = document.getElementById('universeCount');
+            
+            if (state.multiverseVisible) {
+                section.style.opacity = '0.5';
+                section.style.transform = 'scale(0.98)';
+                count.textContent = "🎪 Multiverso nascosto - Clicca per rivelare";
+                state.multiverseVisible = false;
+            } else {
+                section.style.opacity = '1';
+                section.style.transform = 'scale(1)';
+                count.textContent = "Totale: 120 universi simulati";
+                state.multiverseVisible = true;
+            }
+        }
+
+        function toggleNarrative() {
+            state.narrativeMode = (state.narrativeMode + 1) % state.narratives.length;
+            const narrative = state.narratives[state.narrativeMode];
+            
+            document.getElementById('eulerNarrative').textContent = narrative.euler;
+            document.getElementById('rk4Narrative').textContent = narrative.rk4;
+            
+            // Animazione
+            document.getElementById('eulerPhi').style.color = '#ff6b6b';
+            document.getElementById('rk4Phi').style.color = '#51cf66';
+            
+            setTimeout(() => {
+                document.getElementById('eulerPhi').style.color = '#e53e3e';
+                document.getElementById('rk4Phi').style.color = '#38a169';
+            }, 500);
+        }
+
+        function runSimulation() {
+            const btn = event.target;
+            const originalText = btn.textContent;
+            
+            btn.textContent = "⚡ Simulazione in corso...";
+            btn.disabled = true;
+            
+            // Simula calcolo
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += 0.1;
+                document.getElementById('eulerPhi').textContent = `"Φ = ${(0.6 + Math.random() * 0.3).toFixed(2)}"`;
+                document.getElementById('rk4Phi').textContent = `"Φ = ${(0.2 + Math.random() * 0.3).toFixed(2)}"`;
+                
+                if (progress >= 1) {
+                    clearInterval(interval);
+                    btn.textContent = "✅ Simulazione completata!";
+                    setTimeout(() => {
+                        btn.textContent = originalText;
+                        btn.disabled = false;
+                    }, 2000);
+                }
+            }, 100);
+        }
+
+        function toggleSection(element) {
+            const content = element.nextElementSibling;
+            if (content.style.display === 'none') {
+                content.style.display = 'block';
+                element.style.color = '#c9a53c';
+            } else {
+                content.style.display = 'none';
+                element.style.color = '#718096';
+            }
+        }
+
+        function highlightText(element) {
+            element.classList.toggle('highlight');
+            setTimeout(() => {
+                element.classList.remove('highlight');
+            }, 2000);
+        }
+
+        function showDetails(type) {
+            if (type === 'params') {
+                alert("Parametri del Multiverso:\n\n• dt: [0.1, 0.05, 0.01, 0.005]\n• Metodi: [Eulero, RK4, Verlet]\n• Repliche: 5 per combinazione\n• Regimi: [Equity, Extractive]\n\nOgni combinazione crea una diversa 'realtà simulata'.");
+            } else if (type === 'presupposti') {
+                const code = document.getElementById('presuppostiCode');
+                const fullCode = `presupposti = {
+    "p1": "RK4 è il riferimento per l'accuratezza",
+    "p2": "Eulero può introdurre bias qualitativi",
+    "p3": "Differenze tra metodi >15% indicano fragilità numerica",
+    "p4": "La robustezza è più importante dell'accuratezza assoluta",
+    "p5": "Ogni metodo vede una 'realtà simulata' diversa"
+}`;
+                code.textContent = fullCode;
+                code.classList.add('highlight');
+                
+                setTimeout(() => {
+                    code.classList.remove('highlight');
+                }, 3000);
+            }
+        }
+
+        function toggleTheme() {
+            const toggle = document.getElementById('themeToggle');
+            const body = document.body;
+            
+            if (state.theme === 'dark') {
+                // Tema chiaro
+                body.style.background = 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)';
+                body.style.color = '#2d3748';
+                document.querySelector('.container').style.background = 'rgba(255, 255, 255, 0.95)';
+                document.querySelector('.container').style.color = '#2d3748';
+                toggle.textContent = '🌙';
+                toggle.style.background = '#f7fafc';
+                toggle.style.color = '#2d3748';
+                state.theme = 'light';
+            } else {
+                // Tema scuro
+                body.style.background = 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)';
+                body.style.color = '#e2e8f0';
+                document.querySelector('.container').style.background = 'rgba(26, 32, 44, 0.95)';
+                document.querySelector('.container').style.color = '#e2e8f0';
+                toggle.textContent = '☀️';
+                toggle.style.background = '#2d3748';
+                toggle.style.color = '#c9a53c';
+                state.theme = 'dark';
+            }
+        }
+
+        function toggleVisualization() {
+            const viz = document.getElementById('visualization');
+            if (viz.style.display === 'none') {
+                viz.style.display = 'block';
+                drawSimulation();
+            } else {
+                viz.style.display = 'none';
+            }
+        }
+
+        // Canvas simulation
+        let canvas, ctx;
+        let simulationInterval;
+        let oscillators = [];
+        
+        function initCanvas() {
+            canvas = document.getElementById('simCanvas');
+            ctx = canvas.getContext('2d');
+            
+            // Crea oscillatori iniziali
+            for (let i = 0; i < 20; i++) {
+                oscillators.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    phase: Math.random() * Math.PI * 2,
+                    frequency: 0.5 + Math.random() * 0.5,
+                    radius: 5,
+                    color: i % 2 === 0 ? '#e53e3e' : '#38a169'
+                });
+            }
+        }
+        
+        function drawSimulation() {
+            if (!ctx) return;
+            
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Disegna oscillatori
+            oscillators.forEach(osc => {
+                ctx.beginPath();
+                ctx.arc(osc.x, osc.y, osc.radius, 0, Math.PI * 2);
+                ctx.fillStyle = osc.color;
+                ctx.fill();
+                
+                // Linea di fase
+                ctx.beginPath();
+                ctx.moveTo(osc.x, osc.y);
+                ctx.lineTo(
+                    osc.x + Math.cos(osc.phase) * 15,
+                    osc.y + Math.sin(osc.phase) * 15
+                );
+                ctx.strokeStyle = osc.color;
+                ctx.lineWidth = 2;
+                ctx.stroke();
+                
+                // Aggiorna fase
+                osc.phase += osc.frequency * 0.05;
+            });
+            
+            // Parametro d'ordine
+            const avgX = oscillators.reduce((sum, osc) => sum + Math.cos(osc.phase), 0) / oscillators.length;
+            const avgY = oscillators.reduce((sum, osc) => sum + Math.sin(osc.phase), 0) / oscillators.length;
+            const phi = Math.sqrt(avgX * avgX + avgY * avgY);
+            
+            // Disegna Φ
+            ctx.beginPath();
+            ctx.arc(canvas.width - 30, 30, phi * 20, 0, Math.PI * 2);
+            ctx.fillStyle = phi > 0.5 ? '#38a169' : '#e53e3e';
+            ctx.fill();
+            ctx.fillStyle = 'white';
+            ctx.font = '12px Arial';
+            ctx.fillText(`Φ=${phi.toFixed(2)}`, canvas.width - 50, 60);
+        }
+        
+        function startSimulation() {
+            if (simulationInterval) clearInterval(simulationInterval);
+            simulationInterval = setInterval(drawSimulation, 50);
+        }
+        
+        function pauseSimulation() {
+            if (simulationInterval) {
+                clearInterval(simulationInterval);
+                simulationInterval = null;
+            }
+        }
+        
+        function resetSimulation() {
+            oscillators.forEach(osc => {
+                osc.phase = Math.random() * Math.PI * 2;
+            });
+            drawSimulation();
+        }
+
+        function changeQuote() {
+            state.currentQuote = (state.currentQuote + 1) % state.quotes.length;
+            document.getElementById('finalQuote').textContent = state.quotes[state.currentQuote];
+            
+            // Effetto di transizione
+            const quoteElement = document.getElementById('finalQuote');
+            quoteElement.style.opacity = '0';
+            setTimeout(() => {
+                quoteElement.style.opacity = '1';
+                quoteElement.style.transition = 'opacity 0.5s ease';
+            }, 10);
+        }
+
+        function typeWriterEffect() {
+            const title = document.getElementById('mainTitle');
+            const originalText = title.textContent;
+            let i = 0;
+            
+            title.textContent = '';
+            title.classList.add('typewriter');
+            
+            function type() {
+                if (i < originalText.length) {
+                    title.textContent += originalText.charAt(i);
+                    i++;
+                    setTimeout(type, 100);
+                }
+            }
+            
+            type();
+        }
+
+        // Chiudi modali cliccando fuori
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        }
+    </script>
 </body>
 </html>
